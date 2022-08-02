@@ -35,12 +35,17 @@ export default function SignIn() {
     axios.post(`http://localhost:5000/login`,state).then((res)=>
     {
        console.log(res.data);
+          sessionStorage.setItem("user", res.data);
+        
        alert("Login Successfully");
     
     }).catch((e)=>
     {
      alert("Login Failed ")
     })
+
+
+    console.log(sessionStorage.getItem("lastname"))
   };
 
   return (

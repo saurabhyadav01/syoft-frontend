@@ -42,7 +42,7 @@ export default function SignIn() {
 
         
        alert("Login Successfully");
-       navigate("/")
+       navigate("/addProduct")
     
     }).catch((e)=>
     {

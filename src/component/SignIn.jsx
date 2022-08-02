@@ -15,6 +15,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "./Header";
 import axios from "axios";
 import {useNavigate} from "react-router-dom"
+import { useEffect } from "react";
 const theme = createTheme();
 
 export default function SignIn() {
@@ -36,11 +37,12 @@ export default function SignIn() {
     axios.post(`http://localhost:5000/login`,state).then((res)=>
     {
        console.log(res.data);
-          sessionStorage.setItem("user", `${res.data.token}`);
+          sessionStorage.setItem("user", `${res.data}`);
 
-navigate("/")
+
         
        alert("Login Successfully");
+       navigate("/")
     
     }).catch((e)=>
     {
@@ -48,9 +50,11 @@ navigate("/")
     })
 
 
+  };
+
+ 
     let session=sessionStorage.getItem("user");
     console.log(session)
-  };
 
   return (
     <ThemeProvider theme={theme}>

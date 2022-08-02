@@ -12,17 +12,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import Header from "./Header";
-import {useNavigate} from "react-router-dom"
-
+import { useEffect } from "react";
 const theme = createTheme();
-export default function SignUp() {
-  const navigate=useNavigate()
+export default function AddProduct() {
   const [state, setState] = React.useState({
-    username: "",
-    phone: "",
-    email: "",
-    password: "",
-    role:[]
+    name: "",
+    price: "",
+    description: "",
+    quantity: "",
   });
 
   const handlechange = (e) => {
@@ -33,21 +30,25 @@ export default function SignUp() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post(`http://localhost:5000/register`,state).then((res)=>
-    {
-       console.log(res.data);
-       alert("Register Successfully");
-       navigate("/signIn")
-    }).catch((e)=>
-    {
-     alert("Registation Failed ")
-    })
-  
- };
+    axios
+      .post(`http://localhost:5000/product`, state)
+      .then((res) => {
+        console.log(res.data);
+        alert("Product Added Successfully");
+      })
+      .catch((e) => {
+        alert(" Failed ");
+      });
+    
+  };
 
+  useEffect(()=>
+  {
+    let session=JSON.parse(sessionStorage.getItem("user"));
+    console.log(session)
+  },[])
   return (
     <ThemeProvider theme={theme}>
-<Header />
       <Container
         component="main"
         maxWidth="xs"
@@ -71,12 +72,12 @@ export default function SignUp() {
             variant="h6"
             sx={{
               border: "1px solid black",
-              borderRadius: "50%",
+
               padding: "8px",
-              marginBottom:"10px"
+              marginBottom: "10px",
             }}
           >
-            Sign up
+            Add Product
           </Typography>
           <Box
             component="form"
@@ -84,16 +85,15 @@ export default function SignUp() {
             onSubmit={handleSubmit}
             sx={{ mt: 1 }}
           >
-            <Grid container spacing={1}>
-              
-            <Grid item xs={12}>
+            <Grid container spacing={0.8}>
+              <Grid item xs={12}>
                 <TextField
                   required
                   fullWidth
-                  id="username"
-                  label="User Name"
-                  name="username"
-                  autoComplete="username"
+                  id="name"
+                  label="Product Name"
+                  name="name"
+                  autoComplete="name"
                   onChange={handlechange}
                 />
               </Grid>
@@ -101,10 +101,10 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="phone"
-                  label="Phone"
-                  name="phone"
-                  autoComplete="phone"
+                  id="price"
+                  label="Price"
+                  name="price"
+                  autoComplete="price"
                   onChange={handlechange}
                 />
               </Grid>
@@ -112,10 +112,10 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
+                  id="description"
+                  label="Description"
+                  name="description"
+                  autoComplete="description"
                   onChange={handlechange}
                 />
               </Grid>
@@ -123,22 +123,11 @@ export default function SignUp() {
                 <TextField
                   required
                   fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
-                  onChange={handlechange}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  required
-                  fullWidth
-                  id="role"
-                  label="Role"
-                  name="role"
-                  autoComplete="role"
+                  name="quantity"
+                  label="Quantity"
+                  type="quantity"
+                  id="quantity"
+                  autoComplete="quantity"
                   onChange={handlechange}
                 />
               </Grid>
@@ -147,21 +136,13 @@ export default function SignUp() {
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2,backgroundColor: "#ffd84d ",color:"black"}}
+              sx={{ mt: 3, mb: 2, backgroundColor: "#ffd84d ", color: "black" }}
             >
-              Sign Up
+              Add Product
             </Button>
-            <Grid container justifyContent="flex-end">
-              <Grid item>
-                <Link href="SignIn" variant="body2" style={{color:"black",textDecoration:"none",fontSize:"16px"}} >
-                  Already have an account? Sign in
-                </Link>
-              </Grid>
-            </Grid>
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
-
-    );
+  );
 }

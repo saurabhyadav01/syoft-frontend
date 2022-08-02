@@ -42,11 +42,7 @@ export default function AddProduct() {
     
   };
 
-  useEffect(()=>
-  {
-    let session=JSON.parse(sessionStorage.getItem("user"));
-    console.log(session)
-  },[])
+ 
   return (
     <ThemeProvider theme={theme}>
       <Container

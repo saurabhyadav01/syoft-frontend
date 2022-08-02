@@ -12,12 +12,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import Header from "./Header";
 import axios from "axios";
-
+import {useNavigate} from "react-router-dom"
 const theme = createTheme();
 
 export default function SignIn() {
+  const navigate=useNavigate()
   const [state, setState] = React.useState({
     email: "",
     password: "",
@@ -35,7 +36,9 @@ export default function SignIn() {
     axios.post(`http://localhost:5000/login`,state).then((res)=>
     {
        console.log(res.data);
-          sessionStorage.setItem("user", res.data);
+          sessionStorage.setItem("user", `${res.data.token}`);
+
+navigate("/")
         
        alert("Login Successfully");
     
@@ -45,12 +48,13 @@ export default function SignIn() {
     })
 
 
-    console.log(sessionStorage.getItem("lastname"))
+    let session=sessionStorage.getItem("user");
+    console.log(session)
   };
 
   return (
     <ThemeProvider theme={theme}>
-
+<Header />
       <Container
         component="main"
         maxWidth="xs"

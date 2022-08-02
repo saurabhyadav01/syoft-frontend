@@ -11,6 +11,7 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Header from "./Header";
 
 
 const theme = createTheme();
@@ -45,7 +46,7 @@ export default function SignUp() {
 
   return (
     <ThemeProvider theme={theme}>
-
+<Header />
       <Container
         component="main"
         maxWidth="xs"

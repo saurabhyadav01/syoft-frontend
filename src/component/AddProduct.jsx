@@ -31,7 +31,7 @@ export default function AddProduct() {
   const handleSubmit = (event) => {
     event.preventDefault();
     axios
-      .post(`http://localhost:5000/product`, state)
+      .post(`https://syoft-backend-db.herokuapp.com/product`, state)
       .then((res) => {
         console.log(res.data);
         alert("Product Added Successfully");
